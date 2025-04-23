@@ -37,3 +37,27 @@
     transform: translateY(-2px);     /* يرتفع قليلاً */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.product-image {
+    height: 200px;
+    object-fit: contain;
+    background: #f8f9fa;
+}
+.like-btn {
+    width: 40px;
+}
+.quick-view-btn {
+    color: #198754 !important;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}

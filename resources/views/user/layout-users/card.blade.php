@@ -32,12 +32,43 @@
 
     <!-- Card Body -->
     <div class="card-body text-center">
+        <!-- Product Rating -->
+        <div class="product-rating mb-2">
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star text-warning"></i>
+            <i class="fas fa-star-half-alt text-warning"></i>
+            <small class="text-muted">(4.5/5 من 12 تقييم)</small>
+        </div>
+
         <h4 class="text-success fw-bold">£60.99</h4>
         <h5 class="card-title">جهاز قياس الضغط</h5>
         <p class="card-text text-muted">جهاز طبي رقمي عالي الدقة لقياس ضغط الدم بسهولة.</p>
         <div class="d-flex justify-content-center gap-2">
-            <a href="#" class="btn btn-success">إضافة إلى السلة</a>
+            <!-- Modified Add to Cart Button -->
+            <a href="#" class="btn btn-success px-4 py-2 rounded-pill">
+                <i class="fas fa-cart-plus me-2"></i>شراء الآن
+            </a>
+            <!-- Original Heart Button -->
             <button class="btn custom-icon like-btn"><i class="bi bi-heart"></i></button>
         </div>
     </div>
 </div>
+
+<style>
+    /* Custom styles for the buttons */
+    .product-card .btn-success {
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .product-card .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
+    }
+
+    .product-rating {
+        font-size: 0.9rem;
+    }
+</style>
