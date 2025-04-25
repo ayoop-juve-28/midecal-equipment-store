@@ -35,28 +35,37 @@
             </form>
         </div>
 
-        <div class="form-box register">@csrf
-            <form method="POST" action="{{ route('register') }}">
+        <div class="form-box register">
+            <form method="POST" action="{{ route('register') }}">@csrf
                 <h1>Registration</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" name="name" required>
+                    <input type="text" placeholder="Username" name="name" required class="@error('name') is-invalid @enderror">
                     @error('name')
-                    <small class="form-text text-danger">{{ $message }}</small>
+                    <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                        {{ $message }}
+                    </div>
                     @enderror
                     <i class='bx bxs-user'></i>
                 </div>
+
                 <div class="input-box">
-                    <input type="email" placeholder="Email" name='email' required>
+                    <input type="email" placeholder="Email" name="email" required class="@error('email') is-invalid @enderror">
                     @error('email')
-                    <small class="form-text text-danger">{{ $message }}</small>
+                    <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                        {{ $message }}
+                    </div>
                     @enderror
-                    <i class='bx bxs-envelope' ></i>
+                    <i class='bx bxs-envelope'></i>
                 </div>
+
                 <div class="input-box">
-                    <input type="password" placeholder="Password" name="password" required>
+                    <input type="password" placeholder="Password" name="password" required class="@error('password') is-invalid @enderror">
                     @error('password')
-                    <small class="form-text text-danger">{{ $message }}</small>
+                    <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                        {{ $message }}
+                    </div>
                     @enderror
+
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
                 <button type="submit" class="btn">Register</button>

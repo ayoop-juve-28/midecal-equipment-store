@@ -4,12 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRegisterRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
-
-     public $name;
-     public $email;
-     public $password;
 
 
     /**

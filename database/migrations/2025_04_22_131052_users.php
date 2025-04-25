@@ -19,11 +19,12 @@ return new class extends Migration
 
         $table->integer('id',true,);
         $table->string('name','50');
-        $table->string('email','20');
-        $table->integer('phone');
-        $table->string('address');
-        $table->string('password','15');
-        $table->string('photo');
+        $table->string('email','29');
+        $table->integer('phone')->default('218');
+        $table->string('address')->default('tripoli');
+        $table->string('password','100');
+        $table->string('photo')->default('jjjjj');
+        $table->timestamps();
        }
 
        );
