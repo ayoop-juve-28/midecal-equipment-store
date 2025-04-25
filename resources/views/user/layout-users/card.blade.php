@@ -56,19 +56,3 @@
     </div>
 </div>
 
-<style>
-    /* Custom styles for the buttons */
-    .product-card .btn-success {
-        transition: all 0.3s ease;
-        font-weight: 500;
-    }
-
-    .product-card .btn-success:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(25, 135, 84, 0.2);
-    }
-
-    .product-rating {
-        font-size: 0.9rem;
-    }
-</style>

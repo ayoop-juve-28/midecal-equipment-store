@@ -1,0 +1,98 @@
+
+:root {
+    --primary-color: #198754;
+    --secondary-color: #2c3e50;
+}
+
+body {
+    background: #f8f9fa;
+    font-family: 'Cairo', sans-serif;
+}
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+    border-color: #146c43;
+}
+
+.fa-user-shield {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.pc-sidebar {
+    background: #fff;
+    border-right: 1px solid #eee;
+}
+
+.pc-admin-card {
+    background: #f8f9fa;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.pc-item.pc-hasmenu:hover {
+    background-color: #f1f1f1;
+}
+
+.pc-submenu {
+    background-color: #f8f9fa;
+    border-left: 3px solid #198754;
+}
+
+.pc-badge {
+    font-size: 0.75rem;
+    padding: 3px 6px;
+}
+
+.pc-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.pc-head-link {
+    color: #2c3e50 !important;
+}
+
+.pc-h-badge {
+    font-size: 0.75rem;
+}
+
+.fa-user-shield {
+    font-size: 1.5rem;
+    color: #2c3e50;
+}
+
+
+
+.pc-admin-card {
+    background: #f8f9fa;
+    border: 1px solid #eee;
+}
+
+.pc-admin-card .fa-user-shield {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.pc-admin-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.pc-admin-links a:hover {
+    background: #f1f1f1;
+    padding-left: 10px;
+}
