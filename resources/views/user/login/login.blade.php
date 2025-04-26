@@ -39,7 +39,7 @@
             <form method="POST" action="{{ route('register') }}">@csrf
                 <h1>Registration</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" name="name" required class="@error('name') is-invalid @enderror">
+                    <input type="text" placeholder="Username" name="name" value="{{ old('name') }}" required class="@error('name') is-invalid @enderror">
                     @error('name')
                     <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
                         {{ $message }}
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="input-box">
-                    <input type="email" placeholder="Email" name="email" required class="@error('email') is-invalid @enderror">
+                    <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="@error('email') is-invalid @enderror">
                     @error('email')
                     <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
                         {{ $message }}
@@ -59,9 +59,9 @@
                 </div>
 
                 <div class="input-box">
-                    <input type="password" placeholder="Password" name="password" required class="@error('password') is-invalid @enderror">
+                    <input type="password" placeholder="Password" name="password" value="{{ old('password') }}" required class="@error('password') is-invalid @enderror">
                     @error('password')
-                    <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                    <div class="invalid-    *feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
                         {{ $message }}
                     </div>
                     @enderror
