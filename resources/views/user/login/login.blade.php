@@ -9,16 +9,28 @@
     @include('user.login.style_login')
 </head>
 <body>
+    @yield('message')
     <div class="container">
         <div class="form-box login">
-            <form action="#">
+            <form action=" {{ route('login') }}" method="POST">@csrf
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required>
-                    <i class='bx bxs-user'></i>
+                    <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="@error('email') is-invalid @enderror">
+                    @error('email')
+                    <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" name="password" value="{{ old('password') }}" required class="@error('password') is-invalid @enderror">
+                    @error('password')
+                    <div class="invalid-    *feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                        {{ $message }}
+                    </div>
+                    @enderror
+
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
                 <div class="forgot-link">
