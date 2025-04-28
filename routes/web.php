@@ -7,24 +7,24 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\AdminMiddleware;
-
-route::get('/',[UserController::class,'index']);
+//=================User Route=================================================================
+//==============================================================================================
+route::get('/',[UserController::class,'userDashboard'])->name('userDashboard');
 
 Route::resource('user', UserController::class);
-
-Route:: get('/user',[RegisterController::class,'index']);
-Route:: get('/user',[LoginController::class,'index']);
-
-
+//=============================================================================================
+//=================Login & Register Route ==============================================
+Route:: get('/user',[RegisterController::class,'ShowRegister']);
 Route::post('/',[RegisterController::class,'store'])->name('register');
 
-Route::post('/user',[LoginController::class,'login'])->name('login');
-
-
+Route:: get('/user',[LoginController::class,'ShowLogin'])->name('ShowLogin');
+Route::post('/user',[LoginController::class,'Login'])->name('Login');
+//=============================================================================================
+//================ADMIN_ROUTE==============================================================
  Route::middleware([AdminMiddleware::class])->group(function(){
 
 
-    Route:: get('/admin',[AdminController::class,'index']);
+    Route:: get('/admin',[AdminController::class,'adminDashboard'])->name('adminDashboard');
 
 
  });

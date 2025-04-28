@@ -12,10 +12,10 @@
     @yield('message')
     <div class="container">
         <div class="form-box login">
-            <form action=" {{ route('login') }}" method="POST">@csrf
+            <form action=" {{ route('Login') }}" method="POST">@csrf
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" required class="@error('email') is-invalid @enderror">
+                    <input type="email" placeholder="Email" name="email"  required class="@error('email') is-invalid @enderror">
                     @error('email')
                     <div class="invalid-feedback" style="color: red; font-size: 0.8rem; margin-top: 5px;">
                         {{ $message }}

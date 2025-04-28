@@ -6,7 +6,8 @@
         </div>
         <div class="flex-grow-1 ms-3 me-2">
           <h6 class="mb-0"></h6>
-          <small>بيت شباب</small>
+          <small>  <span>{{ Auth::guard('web')->user()->name }}</span></small>
+
         </div>
         <a class="btn btn-icon btn-link-secondary avtar-s" data-bs-toggle="collapse" href="#pc_sidebar_userlink">
           <svg class="pc-icon">

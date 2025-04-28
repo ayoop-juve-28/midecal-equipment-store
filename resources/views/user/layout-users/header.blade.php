@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">عميلنا العزيز</h6>
-                                    <span>client@medicalstore.com</span>
+                                    <span>{{ Auth::guard('web')->user()->name }}</span>
                                 </div>
                             </div>
 

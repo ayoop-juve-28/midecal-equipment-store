@@ -14,7 +14,7 @@
                             <i class="fas fa-user-shield fa-2x text-primary"></i>
                         </div>
                         <div class="flex-grow-1 ms-3 me-2">
-                            <h6 class="mb-0">مدير النظام</h6>
+                            <h6 class="mb-0">{{ Auth::guard('admin')->user()->name }}</h6>
                             <small>الإدارة العامة</small>
                         </div>
                     </div>

@@ -22,6 +22,6 @@ class AdminMiddleware
             return $next($request);
 
         }
-        return \redirect()->route('login')->with('error','عذرا يجب ان تكون ادمن ورجل للوصول لهذه الصفحة');
+        return \redirect()->route('ShowLogin')->with('error','عذرا يجب ان تكون ادمن ورجل للوصول لهذه الصفحة');
     }
 }

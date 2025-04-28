@@ -14,7 +14,7 @@ class RegisterController extends Controller
 {
 
 
-    public function index(){
+    public function ShowRegister(){
 
         return view('user.login');
     }

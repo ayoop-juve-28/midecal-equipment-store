@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h6 class="mb-1">مدير النظام</h6>
-                                    <span>admin@medicalplatform.com</span>
+                                    <span></span>
                                 </div>
                             </div>
                             <hr class="border-secondary border-opacity-50" />

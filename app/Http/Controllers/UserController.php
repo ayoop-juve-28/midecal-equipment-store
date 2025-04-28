@@ -10,7 +10,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function userDashboard()
     {
        return  view('user.User_page');
     }
