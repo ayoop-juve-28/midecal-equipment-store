@@ -31,11 +31,11 @@
           </a> --}}
           <a href="#" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">
-            <i class="ti ti-logout"></i>
+            <i class="ti ti-logout"><small>تسجيل الخروج</small></i>
             <span></span>
           </a>
 
-                <form id="logout-form" action="" method="POST" class="d-none">
+                <form id="logout-form" action="{{ Route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
 

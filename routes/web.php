@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\AdminMiddleware;
+
 //=================User Route=================================================================
 //==============================================================================================
 route::get('/',[UserController::class,'userDashboard'])->name('userDashboard');
@@ -17,8 +18,9 @@ Route::resource('user', UserController::class);
 Route:: get('/user',[RegisterController::class,'ShowRegister']);
 Route::post('/',[RegisterController::class,'store'])->name('register');
 
-Route:: get('/user',[LoginController::class,'ShowLogin'])->name('ShowLogin');
-Route::post('/user',[LoginController::class,'Login'])->name('Login');
+Route:: get('/showlogin',[LoginController::class,'ShowLogin'])->name('ShowLogin');
+Route::post('/login',[LoginController::class,'Login'])->name('Login');
+Route::post('/user',[LoginController::class,'logout'])->name('logout');
 //=============================================================================================
 //================ADMIN_ROUTE==============================================================
  Route::middleware([AdminMiddleware::class])->group(function(){

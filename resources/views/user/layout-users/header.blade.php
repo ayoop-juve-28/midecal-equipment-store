@@ -99,11 +99,15 @@
                             </div>
 
                             <hr class="border-secondary border-opacity-50" />
-                            <div class="d-grid mb-3">
-                                <button class="btn btn-primary" onclick="alert('تم تسجيل الخروج')">
-                                    <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
-                                </button>
-                            </div>
+                            <form action="{{ route('logout') }}" method="POST">@csrf
+                                <div class="d-grid mb-3">
+                                    <button class="btn btn-primary" onclick="alert('تم تسجيل الخروج')">
+                                        <i class="fas fa-sign-out-alt me-2"></i>تسجيل الخروج
+                                    </button>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
