@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // عرض صفحة تسجيل الدخول
     public function ShowLogin()
     {
         return view('user.login');
@@ -25,7 +24,6 @@ class LoginController extends Controller
     {
         $validatedData = $request->validated();
 
-        // استخراج البريد الإلكتروني وكلمة المرور
         $credentials = [
             'email' => $validatedData['email'],
             'password' => $validatedData['password']
