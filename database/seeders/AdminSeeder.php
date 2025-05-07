@@ -20,5 +20,19 @@ class AdminSeeder extends Seeder
             'email'=>'ayoopjuve@admin.com',
             'password'=>Hash::make('juvejuve')
        ] );
+
+
+
+       Admin::create([
+        'id'=>'2',
+        'name'=>'okmeha',
+        'email'=>'okmeha@admin.com',
+        'password'=>Hash::make('juvejuve')
+   ] );
+
+
+
     }
+
+
 }

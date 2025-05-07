@@ -525,7 +525,34 @@
         });
       });
 
+
 </script>
 <!-- [admin JS] start -->
+<script>
+    window.onload = function () {
+        setTimeout(function() {
+            let success = document.getElementById('hide3');
+            if (success) success.style.display = 'none';
+
+            let error = document.getElementById('hide');
+            if (error) error.style.display = 'none';
+
+            let errors = document.getElementById('hide2');
+            if (errors) errors.style.display = 'none';
+        }, 5000);
+    }
+    setTimeout(function () {
+    const alertBoxes = document.querySelectorAll('.alert');
+    alertBoxes.forEach(alert => {
+        alert.classList.add('fade');
+        alert.style.opacity = '0';
+        setTimeout(() => {
+            alert.remove();
+        }, 1000); // بعد انتهاء التحول
+    });
+}, 5000);
+
+</script>
+
 
 <!-- [admin JS] END -->

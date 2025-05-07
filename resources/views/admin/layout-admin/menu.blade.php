@@ -33,6 +33,9 @@
                     </a>
                 </li>
 
+                 @if (auth('admin')->user()->can('manage users'))
+
+
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon"><i class="fas fa-users-cog"></i></span>
@@ -40,11 +43,20 @@
                         <span class="pc-arrow"><i class="fas fa-chevron-right"></i></span>
                     </a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#">قائمة الموظفين</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#">إضافة موظف</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#">الصلاحيات</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('show_employee') }}">قائمة الموظفين</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('add_employee') }}">إضافة موظف</a></li>
+
+                        @if (auth('admin')->user()->can('manage roles'))
+
+                        <li class="pc-item"><a class="pc-link" href="{{ route('show_role_page') }}">الصلاحيات</a></li>
+
+                        @endif
+
                     </ul>
                 </li>
+                @endif
+
+                @if (auth('admin')->user()->can('manage request'))
 
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
@@ -59,7 +71,9 @@
                         <li class="pc-item"><a class="pc-link" href="#">مرفوضة</a></li>
                     </ul>
                 </li>
+                @endif
 
+                  @if(auth('admin')->user()->can('manage complement'))
                 <li class="pc-item pc-hasmenu">
                     <a href="#!" class="pc-link">
                         <span class="pc-micon"><i class="fas fa-comments"></i></span>
@@ -73,6 +87,8 @@
                         <li class="pc-item"><a class="pc-link" href="#">التقارير</a></li>
                     </ul>
                 </li>
+                @endif
+
             </ul>
         </div>
     </div>
