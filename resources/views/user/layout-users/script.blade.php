@@ -1,543 +1,289 @@
-
-
-
-
-
-<!-- [Page Specific JS] start -->
+<!-- المكتبات الأساسية -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-{{-- <script src='{{ asset('assets/js/plugins/apexcharts.min.js') }}'></script> --}}
- {{-- <script src="{{ asset('assets/js/pages/dashboard-default.js')}}"></script> --}}
+<script src="{{ asset('assets/js/plugins/popper.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/bootstrap.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/simplebar.min.js')}}"></script>
+<script src="{{ asset('assets/js/fonts/custom-font.js')}}"></script>
+<script src="{{ asset('assets/js/config.js')}}"></script>
+<script src="{{ asset('assets/js/pcoded.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/feather.min.js')}}"></script>
+<script src="{{ asset('assets/js/plugins/choices.min.js')}}"></script>
 
- <script src="{{ asset('assets/js/plugins/popper.min.js')}}"></script>
- <script src="{{ asset('assets/js/plugins/simplebar.min.js')}}"></script>
- <script src="{{ asset('assets/js/plugins/bootstrap.min.js')}}"></script>
- <script src="{{ asset('assets/js/fonts/custom-font.js')}}"></script>
- <script src="{{ asset('assets/js/config.js')}}"></script>
- <script src="{{ asset('assets/js/pcoded.js')}}"></script>
- <script src="{{ asset('assets/js/plugins/feather.min.js')}}"></script>
+<!-- مكتبات إضافية -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 
- <script src="{{ asset('assets/js/plugins/choices.min.js')}}"></script>
-
- <script type="text/javascript">
-
+<script>
+  // =============================================
+  // تهيئة شاشة التحميل
+  // =============================================
   window.addEventListener('load', function() {
-  var loadingOverlay = document.getElementById('loading-overlay');
-  loadingOverlay.style.display = 'none';
-});
+    const loadingOverlay = document.getElementById('loading-overlay');
+    setTimeout(() => {
+      loadingOverlay.style.opacity = '0';
+      setTimeout(() => {
+        loadingOverlay.style.display = 'none';
+      }, 300);
+    }, 500);
+  });
 
-    function showAdImage(ad){
-      document.getElementById("adName").innerHTML = ad['name'];
-      document.getElementById("adDate").innerHTML = ad['created_at'].split("T")[0];
-      var exampleUrl = "";
-      document.getElementById("adImage").src = exampleUrl+"/storage/"+ad['img'];
+  // =============================================
+  // إدارة الوضع الليلي
+  // =============================================
+  function initializeDarkMode() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkIcons = document.querySelectorAll('.dark-icon');
+    const lightIcons = document.querySelectorAll('.light-icon');
+
+    // التحقق من الإعدادات المحفوظة
+    const storedDarkMode = localStorage.getItem('darkMode') === 'true';
+    const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // تطبيق الإعدادات الأولية
+    if (storedDarkMode || (!localStorage.getItem('darkMode') && systemDarkMode)) {
+      document.body.classList.add('dark');
+      darkIcons.forEach(icon => icon.classList.add('d-none'));
+      lightIcons.forEach(icon => icon.classList.remove('d-none'));
     }
 
-    function showPaymentImage(payment){
-      document.getElementById("paymentName").innerHTML = payment['name'];
-      var exampleUrl = "";
-      document.getElementById("paymentImage").src = exampleUrl+"/storage/"+payment['logo'];
-    }
+    // حدث تبديل الوضع
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      darkIcons.forEach(icon => icon.classList.toggle('d-none'));
+      lightIcons.forEach(icon => icon.classList.toggle('d-none'));
+      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
+    });
 
-    function showProductData(product){
-      document.getElementById("productName").innerHTML = product['name'];
-      document.getElementById("productDescription").innerHTML = product['description'];
-      document.getElementById("productDescription_en").innerHTML = product['description_en'];
-      var exampleUrl = "";
-      document.getElementById("productImage").src = exampleUrl+"/storage/"+product['logo'];
-    }
-
-    function showClassPayments(classification){
-      console.log(classification);
-      document.getElementById("classificationName").innerHTML = classification['name'];
-      var result = classification['payments'];
-      var table = document.getElementById("bodyrow33");
-      table.innerHTML = "";
-
-      for(var i=0; i<result.length;i++){
-          if (top) { var row = table.insertRow(-1); }
-          else { var row = table.insertRow(); }
-
-          // (B3) INSERT CELLS
-          var cell = row.insertCell();
-          cell.innerHTML = result[i]['payment']['name'];
+    // مراقبة تغييرات النظام
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('darkMode')) {
+        document.body.classList.toggle('dark', e.matches);
+        darkIcons.forEach(icon => icon.classList.toggle('d-none', e.matches));
+        lightIcons.forEach(icon => icon.classList.toggle('d-none', !e.matches));
       }
-    }
+    });
+  }
 
-    function showCategoryImage(category){
-      document.getElementById("categoryName").innerHTML = category['name'];
-      var exampleUrl = "";
-      document.getElementById("categoryImage").src = exampleUrl+"/storage/"+category['logo'];
-    }
+  // =============================================
+  // إدارة زر العودة للأعلى
+  // =============================================
+  function initializeBackToTop() {
+    const backButton = document.getElementById('back-to-top');
 
-    function showCustpmerPhones(customer){
-      document.getElementById("customerName").innerHTML = customer['name'];
-      var result = customer['phone_numbers'];
-      var table = document.getElementById("bodyrow44");
-      table.innerHTML = "";
+    window.addEventListener('scroll', () => {
+      backButton.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
 
-      if (top) { var row = table.insertRow(-1); }
-          else { var row = table.insertRow(); }
-          // (B3) INSERT CELLS
-          var cell = row.insertCell();
-          cell.innerHTML = customer['mobile_number'];
+    backButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
 
-      for(var i=0; i<result.length;i++){
-          if (top) { var row = table.insertRow(-1); }
-          else { var row = table.insertRow(); }
+  // =============================================
+  // إدارة القائمة الجانبية
+  // =============================================
+  function initializeSidebar() {
+    // فتح/إغلاق القوائم الفرعية
+    document.querySelectorAll('.pc-hasmenu > a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const parent = this.parentElement;
+        const submenu = parent.querySelector('.pc-submenu');
+        const arrowIcon = parent.querySelector('.pc-arrow i');
 
-          // (B3) INSERT CELLS
-          var cell = row.insertCell();
-          cell.innerHTML = result[i]['mobile_number'];
-      }
-    }
-
-    function showOrderCards(order){
-      console.log(order);
-      document.getElementById("orderName").innerHTML = order['customer']['mobile_number'];
-
-      var result = order['cards'];
-      var table = document.getElementById("bodyrow");
-      table.innerHTML = "";
-      for(var i=0; i<result.length;i++){
-          if (top) { var row = table.insertRow(-1); }
-          else { var row = table.insertRow(); }
-
-          // (B3) INSERT CELLS
-          var cell = row.insertCell();
-          cell.innerHTML = result[i]['classification']['name'];
-          cell = row.insertCell();
-          cell.innerHTML = result[i]['quantity'];
-          cell = row.insertCell();
-          cell.innerHTML = result[i]['classification']['price'];
-          cell.style.color="green";
-      }
-
-    }
-
-    function hide(){
-      document.getElementById("hide").style.display = "none";
-    }
-    function hide3(){
-      document.getElementById("hide3").style.display = "none";
-    }
-    function hide2(){
-      document.getElementById("hide2").style.display = "none";
-    }
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var genericExamples = document.querySelectorAll('[data-trigger]');
-        for (i = 0; i < genericExamples.length; ++i) {
-          var element = genericExamples[i];
-          new Choices(element, {
-            placeholderValue: 'This is a placeholder set in the config',
-            searchPlaceholderValue: 'This is a search placeholder'
+        if (parent.classList.contains('active')) {
+          parent.classList.remove('active');
+          submenu.style.display = 'none';
+          arrowIcon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        } else {
+          document.querySelectorAll('.pc-hasmenu.active').forEach(activeMenu => {
+            activeMenu.classList.remove('active');
+            activeMenu.querySelector('.pc-submenu').style.display = 'none';
+            activeMenu.querySelector('.pc-arrow i').classList.replace('fa-chevron-up', 'fa-chevron-down');
           });
-        }
 
-        var textRemove = new Choices(document.getElementById('choices-text-remove-button'), {
+          parent.classList.add('active');
+          submenu.style.display = 'block';
+          arrowIcon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        }
+      });
+    });
+
+    // تبديل عرض القائمة في الجوال
+    document.querySelectorAll('#mobile-collapse, #sidebar-hide').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.toggle('sidebar-hide');
+      });
+    });
+  }
+
+  // =============================================
+  // إدارة أزرار الإعجاب
+  // =============================================
+  function initializeLikeButtons() {
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        this.classList.toggle('active');
+        icon.classList.toggle('far');
+        icon.classList.toggle('fas');
+      });
+    });
+  }
+
+  // =============================================
+  // وظائف العرض المختلفة
+  // =============================================
+  function showAdImage(ad) {
+    document.getElementById("adName").textContent = ad.name;
+    document.getElementById("adDate").textContent = ad.created_at.split("T")[0];
+    document.getElementById("adImage").src = `/storage/${ad.img}`;
+  }
+
+  function showPaymentImage(payment) {
+    document.getElementById("paymentName").textContent = payment.name;
+    document.getElementById("paymentImage").src = `/storage/${payment.logo}`;
+  }
+
+  function showProductData(product) {
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productDescription").textContent = product.description;
+    document.getElementById("productDescription_en").textContent = product.description_en;
+    document.getElementById("productImage").src = `/storage/${product.logo}`;
+  }
+
+  function showClassPayments(classification) {
+    console.log(classification);
+    document.getElementById("classificationName").textContent = classification.name;
+    const tableBody = document.getElementById("bodyrow33");
+    tableBody.innerHTML = '';
+
+    classification.payments.forEach(payment => {
+      const row = tableBody.insertRow();
+      row.insertCell().textContent = payment.payment.name;
+    });
+  }
+
+  function showCategoryImage(category) {
+    document.getElementById("categoryName").textContent = category.name;
+    document.getElementById("categoryImage").src = `/storage/${category.logo}`;
+  }
+
+  function showCustomerPhones(customer) {
+    document.getElementById("customerName").textContent = customer.name;
+    const tableBody = document.getElementById("bodyrow44");
+    tableBody.innerHTML = '';
+
+    // إضافة الرقم الأساسي
+    const mainRow = tableBody.insertRow();
+    mainRow.insertCell().textContent = customer.mobile_number;
+
+    // إضافة الأرقام الإضافية
+    customer.phone_numbers.forEach(phone => {
+      const row = tableBody.insertRow();
+      row.insertCell().textContent = phone.mobile_number;
+    });
+  }
+
+  function showOrderCards(order) {
+    console.log(order);
+    document.getElementById("orderName").textContent = order.customer.mobile_number;
+    const tableBody = document.getElementById("bodyrow");
+    tableBody.innerHTML = '';
+
+    order.cards.forEach(card => {
+      const row = tableBody.insertRow();
+      row.insertCell().textContent = card.classification.name;
+      row.insertCell().textContent = card.quantity;
+      const priceCell = row.insertCell();
+      priceCell.textContent = card.classification.price;
+      priceCell.style.color = "green";
+    });
+  }
+
+  // =============================================
+  // تهيئة مكتبة الرسوم المتحركة عند التمرير (AOS)
+  // =============================================
+  function initializeAOS() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
+    });
+  }
+
+  // =============================================
+  // التهيئة العامة عند تحميل الصفحة
+  // =============================================
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeDarkMode();
+    initializeBackToTop();
+    initializeSidebar();
+    initializeLikeButtons();
+    initializeAOS();
+
+    // تأثيرات البطاقات عند التمرير
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-5px) scale(1.02)';
+        card.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+      });
+    });
+
+    // تهيئة مكتبة Choices.js
+    const initChoices = () => {
+      const elements = [
+        { id: 'choices-text-remove-button', options: {
           delimiter: ',',
           editItems: true,
           maxItemCount: 5,
           removeItemButton: true
-        });
+        }},
+        // إضافة بقية العناصر هنا...
+      ];
 
-        var text_Unique_Val = new Choices('#choices-text-unique-values', {
-          paste: false,
-          duplicateItemsAllowed: false,
-          editItems: true
-        });
-
-        var text_i18n = new Choices('#choices-text-i18n', {
-          paste: false,
-          duplicateItemsAllowed: false,
-          editItems: true,
-          maxItemCount: 5,
-          addItemText: function (value) {
-            return 'Appuyez sur Entrée pour ajouter <b>"' + String(value) + '"</b>';
-          },
-          maxItemText: function (maxItemCount) {
-            return String(maxItemCount) + 'valeurs peuvent être ajoutées';
-          },
-          uniqueItemText: 'Cette valeur est déjà présente'
-        });
-
-        var textEmailFilter = new Choices('#choices-text-email-filter', {
-          editItems: true,
-          addItemFilter: function (value) {
-            if (!value) {
-              return false;
-            }
-
-            const regex =
-              /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            const expression = new RegExp(regex.source, 'i');
-            return expression.test(value);
-          }
-        }).setValue(['joe@bloggs.com']);
-
-        var textDisabled = new Choices('#choices-text-disabled', {
-          addItems: false,
-          removeItems: false
-        }).disable();
-
-        var textPrependAppendVal = new Choices('#choices-text-prepend-append-value', {
-          prependValue: 'item-',
-          appendValue: '-' + Date.now()
-        }).removeActiveItems();
-
-        var textPresetVal = new Choices('#choices-text-preset-values', {
-          items: [
-            'Josh Johnson',
-            {
-              value: 'joe@bloggs.co.uk',
-              label: 'Joe Bloggs',
-              customProperties: {
-                description: 'Joe Blogg is such a generic name'
-              }
-            }
-          ]
-        });
-
-        var multipleDefault = new Choices(document.getElementById('choices-multiple-groups'));
-
-        var multipleFetch = new Choices('#choices-multiple-remote-fetch', {
-          placeholder: true,
-          placeholderValue: 'Pick an Strokes record',
-          maxItemCount: 5
-        }).setChoices(function () {
-          return fetch('https://api.discogs.com/artists/55980/releases?token=QBRmstCkwXEvCjTclCpumbtNwvVkEzGAdELXyRyW')
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              return data.releases.map(function (release) {
-                return {
-                  value: release.title,
-                  label: release.title
-                };
-              });
-            });
-        });
-
-        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-          removeItemButton: true
-        });
-
-        /* Use label on event */
-        var choicesSelect = new Choices('#choices-multiple-labels', {
-          removeItemButton: true,
-          choices: [
-            {
-              value: 'One',
-              label: 'Label One'
-            },
-            {
-              value: 'Two',
-              label: 'Label Two',
-              disabled: true
-            },
-            {
-              value: 'Three',
-              label: 'Label Three'
-            }
-          ]
-        }).setChoices(
-          [
-            {
-              value: 'Four',
-              label: 'Label Four',
-              disabled: true
-            },
-            {
-              value: 'Five',
-              label: 'Label Five'
-            },
-            {
-              value: 'Six',
-              label: 'Label Six',
-              selected: true
-            }
-          ],
-          'value',
-          'label',
-          false
-        );
-
-        choicesSelect.passedElement.element.addEventListener('addItem', function (event) {
-          document.getElementById('message').innerHTML =
-            '<span class="badge bg-light-primary"> You just added "' + event.detail.label + '"</span>';
-        });
-        choicesSelect.passedElement.element.addEventListener('removeItem', function (event) {
-          document.getElementById('message').innerHTML =
-            '<span class="badge bg-light-danger"> You just removed "' + event.detail.label + '"</span>';
-        });
-
-        var singleFetch = new Choices('#choices-single-remote-fetch', {
-          searchPlaceholderValue: 'Search for an Arctic Monkeys record'
-        })
-          .setChoices(function () {
-            return fetch('https://api.discogs.com/artists/391170/releases?token=QBRmstCkwXEvCjTclCpumbtNwvVkEzGAdELXyRyW')
-              .then(function (response) {
-                return response.json();
-              })
-              .then(function (data) {
-                return data.releases.map(function (release) {
-                  return {
-                    label: release.title,
-                    value: release.title
-                  };
-                });
-              });
-          })
-          .then(function (instance) {
-            instance.setChoiceByValue('Fake Tales Of San Francisco');
-          });
-
-        var singleXhrRemove = new Choices('#choices-single-remove-xhr', {
-          removeItemButton: true,
-          searchPlaceholderValue: "Search for a Smiths' record"
-        }).setChoices(function (callback) {
-          return fetch('https://api.discogs.com/artists/83080/releases?token=QBRmstCkwXEvCjTclCpumbtNwvVkEzGAdELXyRyW')
-            .then(function (res) {
-              return res.json();
-            })
-            .then(function (data) {
-              return data.releases.map(function (release) {
-                return {
-                  label: release.title,
-                  value: release.title
-                };
-              });
-            });
-        });
-
-        var singleNoSearch = new Choices('#choices-single-no-search', {
-          searchEnabled: false,
-          removeItemButton: true,
-          choices: [
-            {
-              value: 'One',
-              label: 'Label One'
-            },
-            {
-              value: 'Two',
-              label: 'Label Two',
-              disabled: true
-            },
-            {
-              value: 'Three',
-              label: 'Label Three'
-            }
-          ]
-        }).setChoices(
-          [
-            {
-              value: 'Four',
-              label: 'Label Four',
-              disabled: true
-            },
-            {
-              value: 'Five',
-              label: 'Label Five'
-            },
-            {
-              value: 'Six',
-              label: 'Label Six',
-              selected: true
-            }
-          ],
-          'value',
-          'label',
-          false
-        );
-
-        var singlePresetOpts = new Choices('#choices-single-preset-options', {
-          placeholder: true
-        }).setChoices(
-          [
-            {
-              label: 'Group one',
-              id: 1,
-              disabled: false,
-              choices: [
-                {
-                  value: 'Child One',
-                  label: 'Child One',
-                  selected: true
-                },
-                {
-                  value: 'Child Two',
-                  label: 'Child Two',
-                  disabled: true
-                },
-                {
-                  value: 'Child Three',
-                  label: 'Child Three'
-                }
-              ]
-            },
-            {
-              label: 'Group two',
-              id: 2,
-              disabled: false,
-              choices: [
-                {
-                  value: 'Child Four',
-                  label: 'Child Four',
-                  disabled: true
-                },
-                {
-                  value: 'Child Five',
-                  label: 'Child Five'
-                },
-                {
-                  value: 'Child Six',
-                  label: 'Child Six'
-                }
-              ]
-            }
-          ],
-          'value',
-          'label'
-        );
-
-        var singleSelectedOpt = new Choices('#choices-single-selected-option', {
-          searchFields: ['label', 'value', 'customProperties.description'],
-          choices: [
-            {
-              value: 'One',
-              label: 'Label One',
-              selected: true
-            },
-            {
-              value: 'Two',
-              label: 'Label Two',
-              disabled: true
-            },
-            {
-              value: 'Three',
-              label: 'Label Three',
-              customProperties: {
-                description: 'This option is fantastic'
-              }
-            }
-          ]
-        }).setChoiceByValue('Two');
-
-        var customChoicesPropertiesViaDataAttributes = new Choices('#choices-with-custom-props-via-html', {
-          searchFields: ['label', 'value', 'customProperties']
-        });
-
-        var singleNoSorting = new Choices('#choices-single-no-sorting', {
-          shouldSort: false
-        });
-
-        var cities = new Choices(document.getElementById('cities'));
-        var tubeStations = new Choices(document.getElementById('tube-stations')).disable();
-
-        cities.passedElement.element.addEventListener('change', function (e) {
-          if (e.detail.value === 'London') {
-            tubeStations.enable();
-          } else {
-            tubeStations.disable();
-          }
-        });
-
-        var customTemplates = new Choices(document.getElementById('choices-single-custom-templates'), {
-          callbackOnCreateTemplates: function (strToEl) {
-            var classNames = this.config.classNames;
-            var itemSelectText = this.config.itemSelectText;
-            return {
-              item: function (classNames, data) {
-                return strToEl(
-                  '\
-                                <div\
-                                class="' +
-                    String(classNames.item) +
-                    ' ' +
-                    String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable) +
-                    '"\
-                                data-item\
-                                data-id="' +
-                    String(data.id) +
-                    '"\
-                                data-value="' +
-                    String(data.value) +
-                    '"\
-                                ' +
-                    String(data.active ? 'aria-selected="true"' : '') +
-                    '\
-                                ' +
-                    String(data.disabled ? 'aria-disabled="true"' : '') +
-                    '\
-                                >\
-                                <span style="margin-right:10px;">🎉</span> ' +
-                    String(data.label) +
-                    '\
-                                </div>\
-                                '
-                );
-              },
-              choice: function (classNames, data) {
-                return strToEl(
-                  '\
-                                <div\
-                                class="' +
-                    String(classNames.item) +
-                    ' ' +
-                    String(classNames.itemChoice) +
-                    ' ' +
-                    String(data.disabled ? classNames.itemDisabled : classNames.itemSelectable) +
-                    '"\
-                                data-select-text="' +
-                    String(itemSelectText) +
-                    '"\
-                                data-choice \
-                                ' +
-                    String(data.disabled ? 'data-choice-disabled aria-disabled="true"' : 'data-choice-selectable') +
-                    '\
-                                data-id="' +
-                    String(data.id) +
-                    '"\
-                                data-value="' +
-                    String(data.value) +
-                    '"\
-                                ' +
-                    String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"') +
-                    '\
-                                >\
-                                <span style="margin-right:10px;">👉🏽</span> ' +
-                    String(data.label) +
-                    '\
-                                </div>\
-                                '
-                );
-              }
-            };
-          }
-        });
-
-        var resetSimple = new Choices(document.getElementById('reset-simple'));
-
-        var resetMultiple = new Choices('#reset-multiple', {
-          removeItemButton: true
-        });
+      elements.forEach(({ id, options }) => {
+        const element = document.getElementById(id);
+        if (element) new Choices(element, options);
       });
+    };
 
+    initChoices();
+  });
+
+  // =============================================
+  // وظائف مساعدة إضافية
+  // =============================================
+  function hideElement(elementId) {
+    document.getElementById(elementId).style.display = 'none';
+  }
+
+  function toggleElementVisibility(elementId) {
+    const element = document.getElementById(elementId);
+    element.style.display = element.style.display === 'none' ? 'block' : 'none';
+  }
 </script>
-<!-- [card---hart---bouttn JS] start -->
 
+<!-- أكواد خاصة ببطاقات الإعجاب -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.like-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                this.classList.toggle('active');
-                const icon = this.querySelector('i');
-                icon.classList.toggle('bi-heart');
-                icon.classList.toggle('bi-heart-fill');
-            });
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const icon = this.querySelector('i');
+        this.classList.toggle('active');
+        icon.classList.toggle('bi-heart');
+        icon.classList.toggle('bi-heart-fill');
+      });
     });
+  });
 </script>
-<!-- [card---hart---bouttn JS] END -->
