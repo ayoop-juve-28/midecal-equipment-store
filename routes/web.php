@@ -50,7 +50,7 @@ Route::middleware([AdminMiddleware::class])->group(function(){
      Route::get('/Employee/edit/{id}',[ EmployeeAdminController::class, 'edit'])->name('admin_edit');
      Route::put('/Employee/{id}/update', [EmployeeAdminController::class, 'update'])->name('Employee_update');
 
-
+//kkkkkkmlmll;l;
 
 
 
