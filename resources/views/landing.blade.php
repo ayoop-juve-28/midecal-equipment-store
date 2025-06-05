@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="flex items-center space-x-4 space-x-reverse">
-                    <a href="#" class="bg-white text-primary px-4 py-1 rounded-lg hover:bg-opacity-90 transition-all flex items-center">
+                    <a href="{{ route('ShowLogin') }}" class="bg-white text-primary px-4 py-1 rounded-lg hover:bg-opacity-90 transition-all flex items-center">
                         <i class="fas fa-sign-in-alt ml-1"></i> تسجيل الدخول
                     </a>
                 </div>
